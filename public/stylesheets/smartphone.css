@@ -2,4 +2,6 @@ body             { background: red; }
 
 h2 span, label.rem	{ display: none; }
 body,               { font-size: large; }
-footer, input       { font-size: large; }
+section > div		{ font-size: smaller;}
+button, input		{ font-size: smaller;}
+footer		        { font-size: large; }
