@@ -1,8 +1,31 @@
-body { background: #999; }
+body, html {
+	 	background: cyan;
+		height: 100%;
+		width: 100%;
+		margin: 0px;
+		padding: 0px;}
 
-#page-wrap:after { content: "Wide Layout"; }
 
-nav       { float: left; width: 15%; height: 200px ;}
-nav span  { margin: 0px 100px 0px 0px;}
-section   { float: right; width: 80%; height: 200px ;}
-footer    { clear: both;  display: block; }
+#adjust {
+	height: 80%;
+	display: flex; 
+	display: -webkit-flex;
+	flex-flow: row;
+	margin-top: 3px;
+	margin-bottom: 3px;}
+
+#adjust nav { 
+	margin-right: 1%;
+	flex: auto;}
+
+#adjust section {
+	flex: 80%;}
+
+header	{
+	height: 10%;
+	padding: 0%;}
+
+footer  {
+	height: 10%;
+	padding: 0%;
+	margin-bottom: 0px;	}

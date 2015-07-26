@@ -1,6 +1,4 @@
-body             { background: #333; }
-
-#page-wrap:after { content: "Smartphone Layout"; }
+body             { background: red; }
 
 h2 span, label.rem	{ display: none; }
 body,               { font-size: large; }

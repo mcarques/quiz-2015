@@ -21,32 +21,33 @@ exports.index = function(req, res) {
     // split(/\s+/) los espacios en blanco pueden haberse creado de cualquier forma (p.e. tabulador)
     // El signo + ignora varios espacios seguidos
     // joint une la cadena utilizando %
-    condicion = { where: ['upper(pregunta) like upper(?)', search], order: 'pregunta ASC' };
-    // con "upper" hago las búsquedas siempre en mayúsculas, para que la búsqueda sea insnesible a mayusculasy minusculas
+    condicion = { where: ['LOWER(pregunta) like ?', search.toLowerCase()], order: 'pregunta ASC' };
+    // con "LOWER" hago las búsquedas siempre en minúsculas, para que la búsqueda sea insensible a mayusculas y minusculas
     search = req.query.search;
   }
   models.Quiz.findAll(condicion).then(function(quizes) {
-      res.render('quizes/index', { quizes: quizes });
+      res.render('quizes/index', { quizes: quizes, errors: [] });
     }
   ).catch(function(error) { next(error);})
 };
 
 // GET /quizes/:id
 exports.show = function(req, res) {
-    res.render('quizes/show', { quiz: req.quiz });
+    res.render('quizes/show', { quiz: req.quiz, errors: [] });
 };
 
 // GET /quizes/:id/answer
 exports.answer = function(req, res) {
   var resultado = 'Incorrecto';
-  if (req.query.respuesta.toUpperCase() === req.quiz.respuesta.toUpperCase()) {resultado = 'Correcto';}
-  // con "toUpperCase" consigo que larepsuesta sea insensible a minusculasy mayusculas
-  res.render('quizes/answer', {quiz: req.quiz, respuesta: resultado});
+  if (req.query.respuesta.toLowerCase() === req.quiz.respuesta.toLowerCase()) {
+    resultado = 'Correcto';}
+  // con "toLowerCase()" consigo que la respuesta sea insensible a minusculas y mayusculas
+  res.render('quizes/answer', {quiz: req.quiz, respuesta: resultado, errors: []});
 };
 
 //GET /author
 exports.author = function(req, res) {
-	res.render('author',{nombre: 'Manuel Carqués'});
+	res.render('author',{nombre: 'Manuel Carqués', errors: [] });
 };
 
 //GET /quizes/new
@@ -54,15 +55,24 @@ exports.new = function(req, res){
   var quiz = models.Quiz.build( //crea objeto quiz
     {pregunta: "Pregunta", respuesta: "Respuesta"}
   );
-  res.render('quizes/new', {quiz: quiz});
+  res.render('quizes/new', {quiz: quiz, errors: []});
 };
 
 // POST /quizes/create
 exports.create = function(req, res) {
   var quiz = models.Quiz.build( req.body.quiz );
 
-// guarda en DB los campos pregunta y respuesta de quiz
-  quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
-    res.redirect('/quizes');  // res.redirect: Redirección HTTP a lista de preguntas
-  })
+  quiz
+  .validate()
+  .then(
+    function(err){
+      if (err) {
+        res.render('quizes/new', {quiz: quiz, errors: err.errors});
+      } else {
+        quiz // save: guarda en DB campos pregunta y respuesta de quiz
+        .save({fields: ["pregunta", "respuesta"]})
+        .then( function(){ res.redirect('/quizes')}) 
+      }      // res.redirect: Redirección HTTP a lista de preguntas
+    }
+  );
 };
