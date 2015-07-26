@@ -21,7 +21,8 @@ exports.index = function(req, res) {
     // split(/\s+/) los espacios en blanco pueden haberse creado de cualquier forma (p.e. tabulador)
     // El signo + ignora varios espacios seguidos
     // joint une la cadena utilizando %
-    condicion = { where: ['pregunta like ?', search], order: 'pregunta ASC' };
+    condicion = { where: ['upper(pregunta) like upper(?)', search], order: 'pregunta ASC' };
+    // con "upper" hago las búsquedas siempre en mayúsculas, para que la búsqueda sea insnesible a mayusculasy minusculas
     search = req.query.search;
   }
   models.Quiz.findAll(condicion).then(function(quizes) {
@@ -38,11 +39,30 @@ exports.show = function(req, res) {
 // GET /quizes/:id/answer
 exports.answer = function(req, res) {
   var resultado = 'Incorrecto';
-  if (req.query.respuesta.toUpperCase() === req.quiz.respuesta) {resultado = 'Correcto';}
+  if (req.query.respuesta.toUpperCase() === req.quiz.respuesta.toUpperCase()) {resultado = 'Correcto';}
+  // con "toUpperCase" consigo que larepsuesta sea insensible a minusculasy mayusculas
   res.render('quizes/answer', {quiz: req.quiz, respuesta: resultado});
 };
 
 //GET /author
 exports.author = function(req, res) {
 	res.render('author',{nombre: 'Manuel Carqués'});
+};
+
+//GET /quizes/new
+exports.new = function(req, res){
+  var quiz = models.Quiz.build( //crea objeto quiz
+    {pregunta: "Pregunta", respuesta: "Respuesta"}
+  );
+  res.render('quizes/new', {quiz: quiz});
+};
+
+// POST /quizes/create
+exports.create = function(req, res) {
+  var quiz = models.Quiz.build( req.body.quiz );
+
+// guarda en DB los campos pregunta y respuesta de quiz
+  quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
+    res.redirect('/quizes');  // res.redirect: Redirección HTTP a lista de preguntas
+  })
 };
