@@ -21,7 +21,7 @@ exports.index = function(req, res) {
     // split(/\s+/) los espacios en blanco pueden haberse creado de cualquier forma (p.e. tabulador)
     // El signo + ignora varios espacios seguidos
     // joint une la cadena utilizando %
-    condicion = { where: ['LOWER(pregunta) like ?', search.toLowerCase()], order: 'pregunta ASC' };
+    condicion = { where: ['LOWER(pregunta) like ?', search.toLowerCase()], order: 'tipo ASC, pregunta ASC' };
     // con "LOWER" hago las búsquedas siempre en minúsculas, para que la búsqueda sea insensible a mayusculas y minusculas
     search = req.query.search;
   }
@@ -62,15 +62,12 @@ exports.new = function(req, res){
 exports.create = function(req, res) {
   var quiz = models.Quiz.build( req.body.quiz );
 
-  quiz
-  .validate()
-  .then(
-    function(err){
+  quiz.validate().then(function(err){
       if (err) {
         res.render('quizes/new', {quiz: quiz, errors: err.errors});
       } else {
         quiz // save: guarda en DB campos pregunta y respuesta de quiz
-        .save({fields: ["pregunta", "respuesta"]})
+        .save({fields: ["pregunta", "respuesta", "tipo"]})
         .then( function(){ res.redirect('/quizes')}) 
       }      // res.redirect: Redirección HTTP a lista de preguntas
     }
@@ -88,16 +85,14 @@ exports.edit = function(req, res) {
 exports.update = function(req, res) {
   req.quiz.pregunta  = req.body.quiz.pregunta;
   req.quiz.respuesta = req.body.quiz.respuesta;
+  req.quiz.tipo = req.body.quiz.tipo;
 
-  req.quiz
-  .validate()
-  .then(
-    function(err){
+  req.quiz.validate().then(function(err){
       if (err) {
         res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
       } else {
         req.quiz     // save: guarda campos pregunta y respuesta en DB
-        .save( {fields: ["pregunta", "respuesta"]})
+        .save( {fields: ["pregunta", "respuesta", "tipo"]})
         .then( function(){ res.redirect('/quizes');});
       }     // Redirección HTTP a lista de preguntas (URL relativo)
     }

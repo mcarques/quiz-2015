@@ -8,8 +8,20 @@
 
 <h2>Lista de preguntas</h2>
 
+<!-- tabla que lista las preguntas ordenadas por tipología -->
 <table>
-<% var i; for (i = 0; i < quizes.length; ++i) { %>
+<%
+  var tipo = null, i;
+  for (i = 0; i < quizes.length; ++i) {
+%>
+    <% if (tipo != quizes[i].tipo) { %>
+    <% tipo = quizes[i].tipo; %>
+    <tr>
+      <th>Tipo: <%= quizes[i].tipo %></th>
+    </tr>
+    <% } %>
+
+    <!-- tabla que dibuja los botones de "editar" y "borrar" -->
     <tr>
     	<td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
     	<td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>

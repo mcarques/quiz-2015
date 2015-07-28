@@ -1,4 +1,4 @@
-// Definicion del modelo de Quiz
+  // Definicion del modelo de Quiz
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('Quiz',
@@ -9,7 +9,11 @@ module.exports = function(sequelize, DataTypes) {
       respuesta: {
         type: DataTypes.STRING,
         validate: { notEmpty: {msg: "-> Falta Respuesta"}}
+      },
+      tipo: {
+        type: DataTypes.ENUM('Otro', 'Humanidades', 'Ocio', 'Ciencia', 'Tecnologia'),
+        defaultValue: 'Otro'
       }
     }
   );
-}
+};
