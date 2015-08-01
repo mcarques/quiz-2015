@@ -12,9 +12,15 @@
   </head> 
 
   <body>
-
       <header class="main" id="h1">
-        <h2>Quiz<span>: el juego de las preguntas</span></h2>
+        
+        <%if(!session.user){%>
+          <span class="right"><a href="/login">Login</a></span>
+        <%}else{%>
+          <span class="right"> <%=session.user.username%> <br/><a href="/logout">Logout</a></span>
+        <%}%>
+
+      <h2>Quiz<span>: el juego de las preguntas</span></h2>
       </header>
       <div id='adjust'>
         <nav class="main" id="n1" role="navigation">
