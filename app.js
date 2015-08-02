@@ -41,6 +41,26 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Middleware para gestión de timeout en session
+app.use(function(req, res, next) {
+    if (req.session.user) {
+        if (req.session.timeout) {
+            if (req.session.timeout + 120000 < new Date().getTime()) {
+                delete req.session.user;
+                req.session.errors = [{ 'message': 'Lleva dos minutos sin actividad. Vuelva a conectar' }];
+                res.redirect('/login');
+                return;
+            }
+        }
+    
+        req.session.timeout = new Date().getTime();
+    } else {
+        req.session.timeout = null;
+    }
+    
+    next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
