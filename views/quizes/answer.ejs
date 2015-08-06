@@ -1,4 +1,9 @@
 <p>
 	<h3><%= respuesta %></h3> <br/>
-	<a href="/quizes/<%= quiz.id %>">Volver</a>
+	
+	<%if (respuesta == 'Incorrecto'){%>
+		<a href="/quizes/<%= quiz.id %>">Volver</a>
+	<%}else{%>
+		<a href="/quizes">Volver</a>
+	<%}%>
 </p>

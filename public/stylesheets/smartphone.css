@@ -1,7 +1,12 @@
-body             { background: red; }
+	#main {	flex-direction: column;	}
+	#main nav { flex-basis: 10%; }
+	#main section { flex-basis: 90%; }
+	#main nav span {
+		flex-direction: row;
+	   	justify-content: space-around;
+	   	font-size: smaller;
+	}
+	header h2 { font-size: xx-large; }
+	header h2 span { display: none;}
+	h3 { font-size: x-large;}
 
-h2 span, label.rem	{ display: none; }
-body,               { font-size: large; }
-section > div		{ font-size: smaller;}
-button, input		{ font-size: smaller;}
-footer		        { font-size: large; }

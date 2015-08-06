@@ -1,13 +1,13 @@
 <%if(session.user){%>
-  <a href="/quizes/new"><button type="button">Crear pregunta</button></a>
-<%}%>
+  <a href="/quizes/new"><button type="button"><b>CREAR PREGUNTA</b></button></a>
+<br/><%}%>
 
-<form method="get" action="/quizes">
-	<input type="text"  name="search" placeholder="Buscar pregunta" />
+<br/><form method="get" action="/quizes">
+	<input type="text"  name="search" placeholder="Buscar una pregunta" />
 	<input type="submit" value="Buscar" />
-</form>
+</form><br/>
 
-<h2>Lista de preguntas</h2>
+<h3>Lista de preguntas</h3>
 
 <!-- tabla que lista las preguntas ordenadas por tipología -->
 <table>

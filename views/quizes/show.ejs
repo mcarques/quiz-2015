@@ -1,10 +1,11 @@
 <form method="get" action="/quizes/<%= quiz.id %>/answer">
-	<h3><%= quiz.pregunta %> </h3><p>
-	<input type="text" name="respuesta" placeholder="Respuesta"/>
+	<h2 style="color: red"><%= quiz.pregunta %> </h2><p>
+	<input type="text" name="respuesta" autofocus=""/><br/>
 	<input type="submit" value="Enviar">
+	<a href="/quizes"><button type="button">Volver</button></a>
 </form>
 
-<p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
+<br/><p><a href="/quizes/<%= quiz.id %>/comments/new"><button><b>Nuevo comentario</b></button></a></p>
 
 <p><strong>Comentarios:</strong></p>
 <% for(index in quiz.Comments) { %>

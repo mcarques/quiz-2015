@@ -1,6 +1,7 @@
-<p>Añadir comentario:</p>
+<p><b>Añada un comentario</b></p><br/>
 
 <form method="post" action="/quizes/<%= quizId %>/comments/">
-    <input type="text" id="comment" name="comment[texto]" value="" /><br />
+    <input type="text" id="comment" name="comment[texto]" autofocus="" /><br />
     <button type="submit">Enviar</button>
+    <a href="/quizes/<%= quizId %>"><button type="button">Volver</button></a>
 </form>

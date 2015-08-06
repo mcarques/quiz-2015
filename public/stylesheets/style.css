@@ -1,22 +1,55 @@
-*    { margin: 0; padding: 0; }
-body { 
-		font: 16px Georgia, serif; 
-		background: orange;
-		height: 100%;
-		width: 100%;}
-
-#adjust	        	{ margin: 2% auto; color: white; }
-
-
-#adjust > .main     { border: 1px solid #999; padding: 1%; 
-	                   margin-bottom: 2%; color: black;}
-
-header,footer		{ height: 50px;}					
-section > div		{ padding: 20px; }
-header, nav, section{ background: #eee; text-align: center;}
-table	  		    { margin: auto;}
-th 					{ color: red;}
-footer              { background: #eee; text-align: center;}
-nav span            { margin: 10px 10px 10px 10px;}
-#ErrorMsgs			{ color: #f61; font-size: smaller;}
-.right 				{float: right; font-size: smaller;}
+	* { margin: 0; padding: 0; }
+		body, html {
+			font: 16px Georgia, serif;
+			height: 100%;
+			width: 100%;
+			min-height: 400px;
+		}
+		#main {
+		   height: 80%;
+		   display: -webkit-flex;
+		   display:  flex;
+		   flex-direction: row;
+		   text-align: center;
+		}
+		#main nav {
+			background: #CCF;
+			flex-basis: 20%;
+			order: 1;
+			margin: 5px;
+		}
+		#main section {	
+			padding-top: 10px;
+			background: #CFC;
+			flex-basis: 80%;
+			order: 2;
+			margin: 5px;
+			overflow-y: auto; 
+		}
+		#main nav span {
+			display: -webkit-flex;
+		    display: flex;
+		    flex-direction: column;
+		    -webkit-flex-direction: column;
+		    padding: 10px;
+		}
+		table { margin: auto;}
+		th {color: blue;}
+		h3 {
+			font-size: xx-large;
+			color: red;
+		}
+		header, footer {
+			display: block;
+			min-height: 10%;
+			text-align: center;
+			background: #FC6;
+		}
+		#ErrorMsgs	{ 
+			color: #f61;
+			font-size: small;
+		}
+		.right {
+			float: right;
+			font-size: small;
+		}
