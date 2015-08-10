@@ -34,7 +34,6 @@
 		    padding: 10px;
 		}
 		table { margin: auto;}
-		th {color: blue;}
 		h3 {
 			font-size: xx-large;
 			color: red;
@@ -51,5 +50,4 @@
 		}
 		.right {
 			float: right;
-			font-size: small;
 		}

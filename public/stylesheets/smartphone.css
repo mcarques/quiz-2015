@@ -1,12 +1,12 @@
+	body, html {
+			font-size: xx-large;
+		}
 	#main {	flex-direction: column;	}
 	#main nav { flex-basis: 10%; }
 	#main section { flex-basis: 90%; }
 	#main nav span {
 		flex-direction: row;
 	   	justify-content: space-around;
-	   	font-size: smaller;
 	}
-	header h2 { font-size: xx-large; }
 	header h2 span { display: none;}
-	h3 { font-size: x-large;}
-
+	#quizTipo, input, label, button { font-size: xx-large;}
